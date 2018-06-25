@@ -1,0 +1,54 @@
+{% extends 'catalog/base.html' %}
+
+{% block content %}
+{% load static %}
+
+<div class="text-center bg-dark text-white" id="food_name" style="height: 25%">
+  <h1 class="intro-text text-center" >{{ product_name }}</h1>
+</div>
+
+<div class="bg-primary" style="padding:2%; height:65%">
+
+  <div class="row" >
+    <div class="col-lg-4 col-md-4 text-center">
+      <img src="{{ thumbnail }}" alt="{{ product_name }}" class="img-responsive">
+    </div>
+    <div class="col-lg-4 col-md-4">
+      <div style="margin-bottom:45px">
+        <h2 class="text-center">Nutri-score</h2>
+        {% if product_score == 1 %}
+          <img src="{% static 'catalog/img/icons/Score/nutriscore-1.svg' %}" alt="{{ product_name }}" class="img-responsive">
+        {% endif %}
+        {% if product_score == 2 %}
+          <img src="{% static 'catalog/img/icons/Score/nutriscore-2.svg' %}" alt="{{ product_name }}" class="img-responsive">
+        {% endif %}
+        {% if product_score == 3 %}
+          <img src="{% static 'catalog/img/icons/Score/nutriscore-3.svg' %}" alt="{{ product_name }}" class="img-responsive">
+        {% endif %}
+        {% if product_score == 4 %}
+          <img src="{% static 'catalog/img/icons/Score/nutriscore-4.svg' %}" alt="{{ product_name }}" class="img-responsive">
+        {% endif %}
+        {% if product_score == 5 %}
+          <img src="{% static 'catalog/img/icons/Score/nutriscore-5.svg' %}" alt="{{ product_name }}" class="img-responsive">
+        {% endif %}
+
+
+      </div>
+      <div class="text-center" >
+        <a href="{{ link }}" >Voir la fiche OpenFoodFacts</a>
+      </div>
+    </div>
+    <div class="col-lg-4 col-md-4 ">
+      <h2 class="text-center" >Catégories</h2>
+      <ul>
+      {% for cat in categories %}
+        <li><a href="{% url 'search_cat' cat=cat.name %}">{{ cat.name }}</a></li>
+      {% endfor %}
+      </ul>
+    </div>
+  </div>
+</div>
+
+
+
+{% endblock %}

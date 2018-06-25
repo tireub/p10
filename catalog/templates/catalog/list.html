@@ -1,0 +1,78 @@
+{% extends 'catalog/base.html' %}
+
+{% block content %}
+{% load static %}
+
+<div class="text-center bg-dark text-white" id="food_name" style="height: 25%">
+<h1 class="intro-text text-center" >{{ name }}</h1>
+</div>
+
+{% if products|length_is:"0" %}
+    <div class="text-center">
+      Nous n'avons trouvé aucun résultat à cette requête.
+    </div>
+
+{% else %}
+
+<div class="bg-primary" id="list" style="padding-top:20px; padding-bottom:20px">
+
+    <div class="container">
+        <div class="box" style="background-color:rgba(255, 255, 255, 0.2);">
+            <div class="row">
+
+                {% for product in products %}
+                <div class="col-lg-4 col-md-4 text-center" style="padding:20px;">
+                    <div id="prod_pic">
+                    <a href="{% url 'detail' product_id=product.id %}">
+                        <img id="pic1" class="images" src="{{ product.picture }}" alt="{{ product.name }}">
+                        {% if product.nutri_score == 1 %}
+                            <img id="pic2" src="{% static 'catalog/img/icons/Score/1.svg' %}">
+                        {% endif %}
+                        {% if product.nutri_score == 2 %}
+                            <img id="pic2" src="{% static 'catalog/img/icons/Score/2.svg' %}">
+                        {% endif %}
+                        {% if product.nutri_score == 3 %}
+                            <img id="pic2" src="{% static 'catalog/img/icons/Score/3.svg' %}">
+                        {% endif %}
+                        {% if product.nutri_score == 4 %}
+                            <img id="pic2" src="{% static 'catalog/img/icons/Score/4.svg' %}">
+                        {% endif %}
+                        {% if product.nutri_score == 5 %}
+                            <img id="pic2" src="{% static 'catalog/img/icons/Score/5.svg' %}">
+                        {% endif %}
+
+                    </a>
+                    </div>
+                    <h3><a href="{% url 'detail' product_id=product.id %}">{{ product.name }}</a></h3>
+                    <h4><a href="{% url 'save' product_id=product.id %}"><i class="fa far fa-save" style="color:Black"></i>  Sauvegarder</a></h4>
+                </div>
+
+
+                {% if  forloop.counter|divisibleby:3 %}</div><div class="row">{% endif %}
+                {% endfor %}
+
+            </div>
+
+
+
+
+            {% endif %}
+
+            {% if paginate %}
+                 <div class="clearfix"></div>
+                <nav aria-label="">
+                    <ul class="pager">
+                        {% if products.has_previous %}
+                            <li><a href="?search={{ name }}&page={{ products.previous_page_number }}">Précédent</a></li>
+                        {% endif %}
+                        {% if products.has_next %}
+                            <li><a href="?search={{ name }}&page={{ products.next_page_number }}">Suivant</a></li>
+                        {% endif %}
+                    </ul>
+                </nav>
+            {% endif %}
+        </div>
+    </div>
+</div>
+
+{% endblock %}

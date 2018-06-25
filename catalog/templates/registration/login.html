@@ -1,0 +1,45 @@
+{% extends 'catalog/base.html' %}
+
+{% block content %}
+
+<header class="masthead text-center text-white d-flex">
+      <div class="container my-auto" style="background-color:rgba(0, 0, 0, 0.6);">
+
+            {% if form.errors %}
+            <p>Votre nom d'utilisateur et le mot de passe ne correspondent pas. Merci de réessayer.</p>
+            {% endif %}
+
+            {% if next %}
+                {% if user.is_authenticated %}
+                <p>Votre compte n'a pas accès à cette page. Connectez-vous
+                    à un compte disposant des bonnes autorisations pour continuer.</p>
+                {% else %}
+                <p>Connectez-vous pour voir cette page.</p>
+                {% endif %}
+            {% endif %}
+
+            <form method="post" action="{% url 'login' %}">
+            {% csrf_token %}
+
+            <div>
+              <td>{{ form.username.label_tag }}</td>
+              <td>{{ form.username }}</td>
+            </div>
+            <div>
+              <td>{{ form.password.label_tag }}</td>
+              <td>{{ form.password }}</td>
+            </div>
+
+            <div>
+              <input type="submit" value="login" />
+              <input type="hidden" name="next" value="{{ next }}" />
+            </div>
+            </form>
+
+            {# Assumes you setup the password_reset view in your URLconf #}
+            <p><a href="{% url 'password_reset' %}">Mot de passe oublié?</a></p>
+
+          </div>
+</header>
+
+{% endblock %}
