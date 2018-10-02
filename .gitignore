@@ -1,2 +1,4 @@
 /p8env
 /ressources
+__pycache__
+nutella_project/settings/production.py
