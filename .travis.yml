@@ -15,4 +15,4 @@ services:
     - mysql
 
 script:
-    - ./manage.py test
+    - ./manage.py <cmd> test
