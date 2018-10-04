@@ -23,7 +23,7 @@ from catalog import views
 
 
 urlpatterns = [
-    path('/', views.index, name="index"),
+    path('', views.index, name="index"),
     path('catalog/', include('catalog.urls')),
     path('admin/', admin.site.urls),
     path('accounts/', include('django.contrib.auth.urls')),
